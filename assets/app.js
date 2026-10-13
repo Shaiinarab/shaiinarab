@@ -29,8 +29,10 @@
   // Offline / rate-limited snapshot — regenerated from the live GitHub API by
   // `python3 scripts/refresh-snapshot.py` (uses GITHUB_PAT; CI keeps it fresh).
   const FALLBACK_REPOS = [
+    { name: "mch", description: "MiMo Claw Harness", language: "Shell", html_url: "https://github.com/Shaiinarab/mch", stargazers_count: 0, forks_count: 0, archived: false },
     { name: "simorgh", description: "Free-to-run, no-KYC, self-evolving agentic AI gateway that federates fragmented free tiers into one resilient flock.", language: "TypeScript", html_url: "https://github.com/Shaiinarab/simorgh", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "mch", description: "MiMo Claw Harness", language: null, html_url: "https://github.com/Shaiinarab/mch", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "hermes-stack", description: "🤖 Hermes Agent + 9Router + OmniRouter on a free Hugging Face Space — deployed via web wizard", language: "Python", html_url: "https://github.com/Shaiinarab/hermes-stack", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "herme", description: "🤖 Hermes Agent + 9Router + OmniRouter on a free Hugging Face Space — deployed via web wizard", language: "Python", html_url: "https://github.com/Shaiinarab/herme", stargazers_count: 0, forks_count: 0, archived: false },
     { name: "pabetoop-club", description: "White-label membership, subscription and billing platform for sports clubs and academies — Go + PocketBase, one binary, Persian RTL UI. Template repository.", language: "Go", html_url: "https://github.com/Shaiinarab/pabetoop-club", stargazers_count: 0, forks_count: 0, archived: false },
     { name: "pabetoop-league", description: "White-label youth competition platform: fixtures, results, standings and admin — Go + SQLite, one binary, Persian RTL UI. Template repository.", language: "Go", html_url: "https://github.com/Shaiinarab/pabetoop-league", stargazers_count: 0, forks_count: 0, archived: false },
     { name: "portfolio-context", description: "Minimal public-safe portfolio context API on Cloudflare Workers", language: "JavaScript", html_url: "https://github.com/Shaiinarab/portfolio-context", stargazers_count: 0, forks_count: 0, archived: false },
