@@ -54,6 +54,7 @@ check("resume:no-invented-projects",Array.isArray(resume.projects)&&resume.proje
 check("resume:interests-not-skill-inventory",Array.isArray(resume.interests)&&!resume.skills);
 check("resume:no-contact-leak",!(/(@|phone|mailto:)/i.test(JSON.stringify(resume))));
 check("workflow:verify-before-deploy",workflowText.includes("node scripts/verify.mjs"));
+check("workflow:validate-public-resume",workflowText.includes("node scripts/validate-resume.cjs data/resume.public.json"));
 check("workflow:push-deploy-condition",workflowText.includes("always() && (github.event_name == 'push'"));
 check("workflow:no-vendor-deploy",!workflowText.includes("cp -r vendor _site/vendor"));
 check("workflow:stage-assets",workflowText.includes("cp -r assets _site/assets")&&workflowText.includes("cp data/resume.public.json _site/"));
