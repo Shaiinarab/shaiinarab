@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360"><rect width="1200" height="360" rx="24" fill="#171923"/><text x="60" y="110" fill="#c7f36b" font-family="monospace" font-size="20">FIELD NOTES / 001</text><text x="60" y="195" fill="#f4f0e7" font-family="monospace" font-size="64" font-weight="bold">COMPUTE. CREATE. CONNECT.</text><text x="60" y="260" fill="#a58aff" font-family="monospace" font-size="18">AI CURIOSITY · SYSTEMS · SOUND · VISUAL IDEAS</text><g fill="none" stroke="#c7f36b" stroke-width="2"><ellipse cx="960" cy="190" rx="160" ry="65" transform="rotate(-30 960 190)"/><ellipse cx="960" cy="190" rx="160" ry="65" transform="rotate(40 960 190)"/></g><circle cx="960" cy="190" r="22" fill="#ff7958"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc">
+<title id="title">Field notes by Shahin Arab</title>
+<desc id="desc">Maximalist editorial banner with a dark grid, large typography, lavender and lime orbital lines, and colorful nodes representing AI, logic, sound, and systems.</desc>
+<defs>
+ <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#f4f0e7" stroke-opacity=".09"/></pattern>
+ <linearGradient id="orbit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff7958"/><stop offset=".5" stop-color="#a58aff"/><stop offset="1" stop-color="#c7f36b"/></linearGradient>
+</defs>
+<rect width="1200" height="380" rx="26" fill="#171923"/><rect width="1200" height="380" rx="26" fill="url(#grid)"/>
+<g fill="#f4f0e7" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" letter-spacing="-3">
+ <text x="58" y="65" font-size="14" letter-spacing="3" fill="#c7f36b">FIELD NOTES / 001</text>
+ <text x="54" y="151" font-size="76" font-weight="900">COMPUTE.</text>
+ <text x="54" y="226" font-size="76" font-weight="900">CREATE.</text>
+ <text x="54" y="301" font-size="76" font-weight="900">CONNECT.</text>
+ <text x="60" y="345" font-size="13" letter-spacing="2" fill="#b0afbd">AI CURIOSITY · SYSTEMS · SOUND · VISUAL IDEAS</text>
+</g>
+<g transform="translate(925 187)" fill="none" stroke="url(#orbit)" stroke-width="2">
+ <ellipse rx="196" ry="94" transform="rotate(-34)"/><ellipse rx="196" ry="94" transform="rotate(39)"/><ellipse rx="135" ry="135" stroke-opacity=".65"/><path d="M-220 0H220M0-166V166" stroke-opacity=".4" stroke-dasharray="4 8"/>
+</g>
+<g><circle cx="925" cy="187" r="42" fill="#c7f36b"/><circle cx="925" cy="187" r="17" fill="#171923"/><circle cx="790" cy="95" r="13" fill="#ff7958"/><circle cx="1086" cy="83" r="10" fill="#a58aff"/><circle cx="1092" cy="293" r="14" fill="#87bfff"/><circle cx="772" cy="284" r="7" fill="#f4f0e7"/></g>
+<g fill="#c7f36b" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" letter-spacing="2"><text x="778" y="71">AI</text><text x="1093" y="150">LOGIC</text><text x="1087" y="329">SOUND</text><text x="730" y="313">SYSTEMS</text></g>
+</svg>
