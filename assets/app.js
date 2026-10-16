@@ -620,7 +620,7 @@
     const h = new Date().getHours();
     const part = h < 5 ? "late night" : h < 11 ? "morning" : h < 17 ? "afternoon" : h < 22 ? "evening" : "late night";
     const local = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    node.innerHTML = `good ${esc(part)}. it's <span class="hl">${esc(local)}</span> where you are — `;
+    node.innerHTML = `good ${esc(part)}. it's <span class="hl">${esc(local)}</span> where you are.`;
   }
 
   /* ---------- pointer joy: parallax, spotlight, magnetic, tilt ---------- */
