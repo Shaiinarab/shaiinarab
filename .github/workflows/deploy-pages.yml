@@ -104,6 +104,9 @@ jobs:
       - name: Verify before shipping
         run: node scripts/verify.mjs
 
+      - name: Validate public résumé
+        run: node scripts/validate-resume.cjs data/resume.public.json
+
       - name: Stage site files
         run: |
           mkdir -p _site/data
