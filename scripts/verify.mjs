@@ -1,67 +1,47 @@
 #!/usr/bin/env node
-// Dependency-free smoke tests for the public field-notes site.
+// Lightweight static-site preflight. No dependencies or network calls.
 import { readFileSync, statSync } from "node:fs";
-const CANON = "https://shaiinarab.github.io/shaiinarab/";
-const failures = [];
-function check(id, ok, detail = "") {
-  console.log((ok ? "PASS  " : "FAIL  ") + id + (detail ? " — " + detail : ""));
-  if (!ok) failures.push(id);
-}
-function read(path) { return readFileSync(new URL("../" + path, import.meta.url), "utf8"); }
-let index, notFound, app, css, readme, resume, workflowText, sitemapText, banner;
-try {
-  index=read("index.html"); notFound=read("404.html"); app=read("assets/app.js"); css=read("assets/style.css");
-  readme=read("README.md"); resume=JSON.parse(read("data/resume.public.json")); workflowText=read(".github/workflows/deploy-pages.yml");
-  sitemapText=read("sitemap.xml"); banner=read("assets/profile-banner.svg");
-} catch(error) { console.error("FAIL fixture-load — " + error.message); process.exit(1); }
-check("html:language",index.includes('<html lang="en">'));
-check("html:canonical",index.includes('<link rel="canonical" href="' + CANON + '">'));
-check("html:description",/<meta name="description" content="[^"]{50,}">/.test(index));
-check("html:open-graph",index.includes('property="og:title"')&&index.includes('property="og:image"'));
-check("html:jsonld-valid",(()=>{try{const m=index.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);JSON.parse(m[1]);return true;}catch{return false;}})());
-check("html:no-framework-scripts",!/vendor\/(htmx|alpine|_hyperscript|tailwind)/i.test(index));
-check("html:skip-link",index.includes('class="skip-link" href="#main"'));
-check("html:labelled-navigation",index.includes('<nav class="main-nav" aria-label="Main navigation">'));
-check("html:keyboard-search",index.includes('placeholder="Search by repository name… (press /)"'));
-for(const id of ["top","interests","profile","now","life","directory","contact","repo-search","lang-chips","repo-grid","result-line","api-note","retry-btn","theme-toggle","year"]) check("html:id-"+id,index.includes('id="'+id+'"'));
-check("html:honest-student-copy",/Computer Engineering student/.test(index)&&/Still learning the foundations/.test(index));
-check("html:no-inflated-claims",!/CUDA expert|Rust expert|professional researcher|production-grade software/i.test(index));
-check("html:repository-status-caveat",/descriptions are intentionally omitted/i.test(index));
-check("readme:custom-banner",readme.includes("assets/profile-banner.svg"));
-check("readme:maximalist-markdown",readme.includes("| Coordinates | Section |")&&readme.includes("<details>")&&readme.includes("flowchart TD")&&readme.includes("!["));
-check("readme:academic-interests",readme.includes("Artificial intelligence")&&readme.includes("Linear algebra"));
-check("readme:student-honesty",/not an established engineer or researcher/.test(readme));
-check("readme:school-mentioned-once",(readme.match(/Zand Institute of Higher Education/g)||[]).length===1);
-check("readme:hobbies",readme.includes("FL Studio")&&readme.includes("Ableton Live")&&readme.includes("Digital art"));
-check("readme:no-private-health-substance-details",!/AuDHD|cannabis|psilocybin|diagnosis/i.test(readme));
-check("readme:no-false-skill-inventory",!/CUDA developer|Rust expert|Go expert|Mojo expert|GPU computing specialist/i.test(readme));
-check("app:live-github-api",app.includes("api.github.com/users/")&&app.includes("per_page=100&sort=pushed"));
-check("app:offline-snapshot",app.includes("const FALLBACK_REPOS = ["));
-check("app:cache",app.includes("field-notes:repos:v2"));
-check("app:search-filter",app.includes("renderFilters")&&app.includes("filteredRepos")&&app.includes("activeLanguage"));
-check("app:no-repo-descriptions-rendered",!app.includes("repo.description")&&!app.includes("r.description"));
-check("app:keyboard-shortcut",app.includes('event.key!=="/"'));
-check("app:theme-persisted",app.includes("field-notes:theme:v1"));
-check("css:design-tokens",css.includes("--paper:")&&css.includes("--lime:")&&css.includes("--coral:")&&css.includes("--violet:"));
-check("css:responsive-layouts",css.includes("@media(max-width:1000px)")&&css.includes("@media(max-width:700px)"));
-check("css:visible-focus",css.includes(":focus-visible"));
-check("css:reduced-motion",css.includes("prefers-reduced-motion:reduce"));
-check("css:no-external-fonts",!/fonts\.(googleapis|gstatic)/.test(css+index));
-check("css:no-framework-runtime",!/tailwind|alpine|hyperscript|htmx/i.test(index));
-check("resume:identity",resume.basics?.name==="Shahin Arab");
-check("resume:education",Array.isArray(resume.education)&&resume.education.length===1);
-check("resume:no-invented-projects",Array.isArray(resume.projects)&&resume.projects.length===0);
-check("resume:interests-not-skill-inventory",Array.isArray(resume.interests)&&!resume.skills);
-check("resume:no-contact-leak",!(/(@|phone|mailto:)/i.test(JSON.stringify(resume))));
-check("workflow:verify-before-deploy",workflowText.includes("node scripts/verify.mjs"));
-check("workflow:validate-public-resume",workflowText.includes("node scripts/validate-resume.cjs data/resume.public.json"));
-check("workflow:push-deploy-condition",workflowText.includes("always() && (github.event_name == 'push'"));
-check("workflow:no-vendor-deploy",!workflowText.includes("cp -r vendor _site/vendor"));
-check("workflow:stage-assets",workflowText.includes("cp -r assets _site/assets")&&workflowText.includes("cp data/resume.public.json _site/"));
-check("404:home-link",notFound.includes('href="./"'));
-check("sitemap:canonical",sitemapText.includes("<loc>"+CANON+"</loc>"));
-check("sitemap:lastmod",/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(sitemapText));
-check("asset:banner-svg",banner.includes("<svg")&&banner.includes("viewBox=")&&banner.length>500);
-for(const path of ["assets/og.png","assets/hub-flow.svg"]) {try{check("asset:"+path,statSync(new URL("../"+path,import.meta.url)).size>500);}catch{check("asset:"+path,false,"missing");}}
-console.log(failures.length ? "\nRED — " + failures.length + " failing check(s)" : "\nGREEN — all checks passed");
-process.exit(failures.length?1:0);
+const failures=[];
+function check(n,ok,d=""){console.log((ok?"PASS ":"FAIL ")+n+(d?" — "+d:""));if(!ok)failures.push(n);}
+function read(p){return readFileSync(new URL("../"+p,import.meta.url),"utf8");}
+let index,css,app,readme,workflow,resume,notFound,sitemap,robots;
+try{index=read("index.html");css=read("assets/style.css");app=read("assets/app.js");readme=read("README.md");workflow=read(".github/workflows/deploy-pages.yml");resume=JSON.parse(read("data/resume.public.json"));notFound=read("404.html");sitemap=read("sitemap.xml");robots=read("robots.txt");}catch(e){console.error("FAIL fixture-load — "+e.message);process.exit(1);}
+const CANON="https://shaiinarab.github.io/shaiinarab/";
+for(const id of ["main","hero-title","interests","library","offscreen","repo-search","lang-chips","repo-grid","result-line","repo-status","api-note","repo-retry","theme-toggle","year"])check("index:id-"+id,index.includes('id="'+id+'"'));
+check("index:canonical",index.includes('<link rel="canonical" href="'+CANON+'">'));
+check("index:metadata",index.includes('property="og:title"')&&index.includes('name="twitter:card"'));
+check("index:jsonld-valid",(()=>{try{JSON.parse(index.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);return true;}catch(_){return false;}})());
+check("index:interest-sections",/AI\s*&/.test(index)&&index.includes("Fundamentals of algorithms")&&index.includes("Music production"));
+check("index:honest-status-language",index.includes("not a wall of self-awarded project medals")&&index.includes("not a measure of the author's proficiency"));
+check("index:no-remote-js",!/<script[^>]+src=["']https?:\/\//i.test(index));
+check("index:no-vendored-frameworks",!/vendor\/(?:htmx|alpine|_hyperscript|tailwind)/i.test(index));
+check("index:reduced-motion-style",css.includes("prefers-reduced-motion"));
+check("index:responsive-breakpoints",css.includes("max-width:760px")&&css.includes("max-width:430px"));
+check("index:theme-contrast",css.includes('html[data-theme="dark"]')&&css.includes("prefers-contrast:more"));
+check("index:print-styles",css.includes("@media print"));
+check("index:keyboard-focus",css.includes(":focus-visible")&&index.includes('class="skip-link"'));
+check("index:repo-escaping",/function esc\(v\)/.test(app)&&app.includes("noopener noreferrer"));
+check("index:offline-fallback",/FALLBACK_REPOS/.test(app)&&app.includes("readCache")&&app.includes("fetchPublicRepos"));
+check("index:repo-descriptions-not-trusted",!/repo\.description|r\.description/.test(app));
+check("index:query-shareable",app.includes("history.replaceState")&&app.includes("URLSearchParams"));
+check("index:keyboard-search",app.includes('e.key!=="/"'));
+check("index:time-bounded-requests",app.includes("AbortSignal.timeout"));
+check("index:theme-preference",app.includes("field-notes-theme")&&app.includes("localStorage"));
+check("index:no-analytics",!/google-analytics|googletagmanager|plausible\.io|umami\.is/i.test(index+app));
+check("readme:maximalist-markdown",readme.includes(String.fromCharCode(96).repeat(3)+"mermaid")&&readme.includes("<details>")&&readme.includes("<blockquote>")&&readme.includes("| Signal |"));
+check("readme:student-position",readme.includes("Computer Engineering student")&&readme.includes("in progress"));
+check("readme:institution-mentioned-once",(readme.match(/Zand Institute of Higher Education/g)||[]).length===1);
+check("readme:no-inflated-skills",!/\bCUDA\b|\bOpenCL\b|\bMojo\b|Researcher|professional software engineer/i.test(readme));
+check("readme:no-private-health-or-substance-data",!/AuDHD|cannabis|psilocybin|diagnosis|medication/i.test(readme));
+check("readme:has-custom-visual",readme.includes("assets/constellation.svg"));
+check("resume:valid-json",resume.basics&&resume.basics.name==="Shahin Arab"&&Array.isArray(resume.projects));
+check("resume:no-claimed-projects",resume.projects.length===0);
+check("workflow:deploy-v4",workflow.includes("actions/deploy-pages@v4"));
+check("workflow:push-deploy-condition",workflow.includes("always() && (github.event_name == 'push'"));
+check("workflow:verify-before-deploy",workflow.includes("node scripts/verify.mjs")&&workflow.includes("node --check assets/app.js"));
+check("workflow:no-vendor-payload",!/cp -r vendor _site\/vendor/.test(workflow));
+check("crawler:robots-and-sitemap",robots.trim().endsWith("Sitemap: "+CANON+"sitemap.xml")&&sitemap.includes("<loc>"+CANON+"</loc>"));
+check("404:back-to-site",notFound.includes("/shaiinarab/"));
+check("svg:custom-illustration",(()=>{const s=read("assets/constellation.svg");return s.includes("<svg")&&s.includes("</svg>")&&s.length>1000;})());
+for(const asset of ["assets/og.png","assets/fonts/caveat-latin.woff2"]){try{const st=statSync(new URL("../"+asset,import.meta.url));check("asset:"+asset,st.size>100);}catch(e){check("asset:"+asset,false,"missing");}}
+console.log(failures.length?"\nRED — "+failures.length+" checks failed":"\nGREEN — all checks passing");process.exit(failures.length?1:0);

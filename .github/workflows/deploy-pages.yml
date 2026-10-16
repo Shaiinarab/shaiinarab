@@ -102,7 +102,9 @@ jobs:
           persist-credentials: false
 
       - name: Verify before shipping
-        run: node scripts/verify.mjs
+        run: |
+          node --check assets/app.js
+          node scripts/verify.mjs
 
       - name: Validate public résumé
         run: node scripts/validate-resume.cjs data/resume.public.json

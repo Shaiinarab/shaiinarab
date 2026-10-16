@@ -1,21 +1,6 @@
-/* Field Notes: small, dependency-free interactions. */
 "use strict";
-(() => {
-  const USER = "Shaiinarab";
-  const SELF_REPO = "shaiinarab";
-  const CACHE_KEY = "field-notes:repos:v2";
-  const THEME_KEY = "field-notes:theme:v1";
-  const LANG_COLORS = {Rust:"#b96f4d",Go:"#168caa",Python:"#4779b5",TypeScript:"#3178b8",JavaScript:"#b5a329",HTML:"#c85c43",CSS:"#7c62a3",Shell:"#708f50",C:"#6c7d8c","C++":"#bb596a",Java:"#a7783b",Kotlin:"#8466ba",Swift:"#bd6753",Ruby:"#a6555c",PHP:"#7a78a8",Lua:"#557f8d",Dart:"#318e91",Nix:"#587fa5",Zig:"#b78045"};
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-  const languageColor = language => LANG_COLORS[language] || "#85858b";
-  const dateLabel = value => {
-    if (!value) return "date unavailable";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "date unavailable";
-    return new Intl.DateTimeFormat(undefined,{year:"numeric",month:"short",day:"numeric"}).format(date);
-  };
-
+(function () {
+  const USER="Shaiinarab", SELF_REPO="shaiinarab", CACHE_KEY="field-notes-repos-v2", THEME_KEY="field-notes-theme";
   // Offline / rate-limited snapshot — regenerated from the live GitHub API by
   // `python3 scripts/refresh-snapshot.py` (uses GITHUB_PAT; CI keeps it fresh).
   const FALLBACK_REPOS = [
@@ -35,144 +20,25 @@
     { name: "Falcons", description: null, language: null, html_url: "https://github.com/Shaiinarab/Falcons", stargazers_count: 0, forks_count: 0, archived: false },
     { name: "to-improve", description: null, language: null, html_url: "https://github.com/Shaiinarab/to-improve", stargazers_count: 0, forks_count: 0, archived: true },
   ];
-
-  const state = {repos:[], user:null, activeLanguage:"All", live:false, cacheTime:null};
-  const grid=$("#repo-grid"), search=$("#repo-search"), chips=$("#lang-chips"), status=$("#result-line");
-  const apiNote=$("#api-note"), retryButton=$("#retry-btn"), progress=$("#reading-progress");
-
-  function readCache() {
-    try {
-      const value=JSON.parse(localStorage.getItem(CACHE_KEY)||"null");
-      return value && Array.isArray(value.repos) && value.repos.length ? value : null;
-    } catch { return null; }
-  }
-  function writeCache() {
-    try {
-      localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),user:state.user,repos:state.repos.map(repo=>({
-        name:repo.name,html_url:repo.html_url,language:repo.language,archived:Boolean(repo.archived),
-        stargazers_count:repo.stargazers_count||0,forks_count:repo.forks_count||0,pushed_at:repo.pushed_at||null
-      }))}));
-    } catch { /* storage is optional */ }
-  }
-  async function getJSON(url) {
-    const response=await fetch(url,{
-      headers:{Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"},
-      signal:typeof AbortSignal.timeout==="function" ? AbortSignal.timeout(12000) : undefined
-    });
-    if(!response.ok) throw new Error("GitHub API HTTP "+response.status);
-    return response.json();
-  }
-  async function load() {
-    grid.setAttribute("aria-busy","true");
-    grid.innerHTML='<div class="repo-placeholder">Connecting to GitHub’s public API…</div>';
-    apiNote.hidden=true;
-    try {
-      const results=await Promise.all([
-        getJSON("https://api.github.com/users/"+USER),
-        getJSON("https://api.github.com/users/"+USER+"/repos?per_page=100&sort=pushed")
-      ]);
-      state.user=results[0];
-      state.repos=results[1].filter(repo=>!repo.fork&&repo.name!==SELF_REPO)
-        .sort((a,b)=>new Date(b.pushed_at||0)-new Date(a.pushed_at||0));
-      state.cacheTime=Date.now();state.live=true;writeCache();
-    } catch {
-      const cached=readCache();
-      state.live=false;state.user=cached?.user||null;
-      state.repos=(cached?.repos?.length?cached.repos:FALLBACK_REPOS)
-        .filter(repo=>!repo.fork&&repo.name!==SELF_REPO)
-        .map(repo=>({name:repo.name,html_url:repo.html_url,language:repo.language,archived:Boolean(repo.archived),
-          stargazers_count:repo.stargazers_count||0,forks_count:repo.forks_count||0,pushed_at:repo.pushed_at||null}));
-      state.cacheTime=cached?.savedAt||null;apiNote.hidden=false;
-    }
-    renderFilters();renderRepos();renderStats();
-  }
-  function renderStats() {
-    const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
-    const langs=new Set(state.repos.map(repo=>repo.language).filter(Boolean));
-    set("stat-repos",state.user?String(state.user.public_repos):String(state.repos.length));
-    set("stat-languages",String(langs.size));set("stat-followers",state.user?String(state.user.followers):"—");
-  }
-  function filteredRepos() {
-    const query=search.value.trim().toLocaleLowerCase();
-    return state.repos.filter(repo=>(state.activeLanguage==="All"||repo.language===state.activeLanguage)&&(!query||repo.name.toLocaleLowerCase().includes(query)));
-  }
-  function renderFilters() {
-    const counts=new Map();
-    for(const repo of state.repos) if(repo.language) counts.set(repo.language,(counts.get(repo.language)||0)+1);
-    const languages=["All",...[...counts.keys()].sort((a,b)=>a.localeCompare(b))];
-    if(!languages.includes(state.activeLanguage)) state.activeLanguage="All";
-    chips.innerHTML=languages.map(language=>{
-      const selected=language===state.activeLanguage;
-      const suffix=language==="All"?"":" <span>"+counts.get(language)+"</span>";
-      return '<button class="filter-chip'+(selected?" is-active":"")+'" type="button" data-lang="'+escapeHTML(language)+'" aria-pressed="'+selected+'">'+escapeHTML(language)+suffix+'</button>';
-    }).join("");
-  }
-  function repoCard(repo) {
-    const archived=Boolean(repo.archived);
-    const language=repo.language
-      ? '<span class="repo-language"><i style="--language-color:'+languageColor(repo.language)+'"></i>'+escapeHTML(repo.language)+'</span>'
-      : '<span class="repo-language">Language not specified</span>';
-    const badge=archived?'<span class="repo-badge repo-badge--archived">ARCHIVED</span>':'<span class="repo-badge">PUBLIC REPOSITORY</span>';
-    return '<article class="repo-card'+(archived?' is-archived':'')+'"><div class="repo-card-head">'+language+badge+'</div>'+
-      '<h3><a href="'+escapeHTML(repo.html_url)+'" target="_blank" rel="noopener noreferrer">'+escapeHTML(repo.name)+' <span aria-hidden="true">↗</span></a></h3>'+
-      '<p class="repo-card-note">Open the repository to inspect its README, source, and history. Completeness varies.</p>'+
-      '<div class="repo-card-foot"><span>Updated '+dateLabel(repo.pushed_at)+'</span><span>★ '+(Number(repo.stargazers_count)||0)+'</span><span>⑂ '+(Number(repo.forks_count)||0)+'</span></div></article>';
-  }
-  function renderRepos() {
-    const visible=filteredRepos();
-    grid.setAttribute("aria-busy","false");
-    grid.innerHTML=visible.length?visible.map(repoCard).join(""):'<div class="repo-placeholder">No repositories match that filter. Try another name or language.</div>';
-    status.textContent=state.live
-      ? visible.length+" shown · "+state.repos.length+" public non-fork repositories · live GitHub data"
-      : visible.length+" shown · "+(state.cacheTime?"saved snapshot from "+new Date(state.cacheTime).toLocaleString():"built-in offline snapshot")+" · live sync unavailable";
-    updateURLState();
-  }
-  function updateURLState() {
-    const url=new URL(location.href);
-    if(search.value.trim())url.searchParams.set("q",search.value.trim());else url.searchParams.delete("q");
-    if(state.activeLanguage!=="All")url.searchParams.set("lang",state.activeLanguage);else url.searchParams.delete("lang");
-    history.replaceState(null,"",url.pathname+(url.searchParams.toString()?"?"+url.searchParams:"")+url.hash);
-  }
-  function restoreURLState() {
-    const params=new URLSearchParams(location.search);search.value=params.get("q")||"";state.activeLanguage=params.get("lang")||"All";
-  }
-  chips.addEventListener("click",event=>{
-    const button=event.target.closest("button[data-lang]");if(!button)return;
-    state.activeLanguage=button.dataset.lang;renderFilters();renderRepos();
-  });
-  let searchFrame=0;
-  search.addEventListener("input",()=>{cancelAnimationFrame(searchFrame);searchFrame=requestAnimationFrame(renderRepos);});
-  search.addEventListener("keydown",event=>{if(event.key==="Escape"){search.value="";renderRepos();}});
-  retryButton.addEventListener("click",load);
-  document.addEventListener("keydown",event=>{
-    if(event.key!=="/"||event.ctrlKey||event.metaKey||event.altKey)return;
-    if(event.target instanceof HTMLElement&&/INPUT|TEXTAREA|SELECT/.test(event.target.tagName))return;
-    event.preventDefault();search.focus();
-  });
-  const themeButton=$("#theme-toggle");
-  function setTheme(theme,persist=true) {
-    document.documentElement.dataset.theme=theme;
-    const dark=theme==="night";
-    themeButton.setAttribute("aria-pressed",String(dark));
-    themeButton.setAttribute("aria-label",dark?"Switch to light theme":"Switch to dark theme");
-    $(".theme-label",themeButton).textContent=dark?"Day mode":"Night shift";
-    if(persist){try{localStorage.setItem(THEME_KEY,theme);}catch{/* optional */}}
-  }
-  try {
-    const saved=localStorage.getItem(THEME_KEY);
-    const preferred=matchMedia("(prefers-color-scheme: dark)").matches?"night":"day";
-    setTheme(saved||preferred,false);
-  } catch { setTheme("day",false); }
-  themeButton.addEventListener("click",()=>setTheme(document.documentElement.dataset.theme==="night"?"day":"night"));
-  $("#year").textContent=String(new Date().getFullYear());
-  let ticking=false;
-  addEventListener("scroll",()=>{
-    if(ticking)return;ticking=true;
-    requestAnimationFrame(()=>{
-      const max=document.documentElement.scrollHeight-innerHeight;
-      progress.style.transform="scaleX("+(max>0?Math.min(1,scrollY/max):0)+")";ticking=false;
-    });
-  },{passive:true});
-  addEventListener("online",load);
-  restoreURLState();load();
+  const LANG_COLORS={Rust:"#dea584",Go:"#00add8",Python:"#3572a5",TypeScript:"#3178c6",JavaScript:"#f1e05a",HTML:"#e34c26",CSS:"#563d7c",Shell:"#89e051",C:"#555555","C++":"#f34b7d",Java:"#b07219",Kotlin:"#a97bff",Ruby:"#701516",PHP:"#4f5d95",Lua:"#000080",Dart:"#00b4ab",Vue:"#41b883",Svelte:"#ff3e00",Swift:"#f05138",Jupyter:"#da5b0b"};
+  const $=s=>document.querySelector(s),state={repos:[],activeLang:"All",query:"",source:"snapshot",request:0};
+  function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+  function relativeDay(v){if(!v)return"";const d=new Date(v);if(Number.isNaN(d.getTime()))return"";const n=Math.max(0,Math.floor((Date.now()-d.getTime())/86400000));if(n===0)return"updated today";if(n===1)return"updated yesterday";if(n<30)return"updated "+n+"d ago";if(n<365)return"updated "+Math.floor(n/30)+"mo ago";return"updated "+Math.floor(n/365)+"y ago";}
+  function readCache(){try{const d=JSON.parse(localStorage.getItem(CACHE_KEY)||"null");if(d&&Array.isArray(d.repos)&&d.repos.length)return d;}catch(_){}return null;}
+  function writeCache(r){try{localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),repos:r}));}catch(_){}}
+  function normalize(r){return{name:String(r.name||""),language:r.language||null,html_url:r.html_url||("https://github.com/"+USER+"/"+encodeURIComponent(r.name||"")),stargazers_count:Number(r.stargazers_count||0),forks_count:Number(r.forks_count||0),archived:Boolean(r.archived),pushed_at:r.pushed_at||null,fork:Boolean(r.fork)};}
+  function fallbackRepos(){return FALLBACK_REPOS.map(normalize).filter(r=>r.name!==SELF_REPO&&!r.fork);}
+  function nextPage(h){if(!h)return null;const m=h.match(/<([^>]+)>;\s*rel="next"/);return m?m[1]:null;}
+  async function fetchPublicRepos(){const list=[];let url="https://api.github.com/users/"+USER+"/repos?per_page=100&sort=pushed",pages=0;while(url&&pages<10){const r=await fetch(url,{headers:{Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"},signal:(typeof AbortSignal!=="undefined"&&AbortSignal.timeout)?AbortSignal.timeout(12000):undefined});if(!r.ok)throw Error("GitHub API HTTP "+r.status);const page=await r.json();if(!Array.isArray(page))throw Error("Unexpected GitHub API response");list.push(...page);url=nextPage(r.headers.get("Link"));pages++;}return list.filter(r=>!r.fork&&r.name!==SELF_REPO).map(normalize);}
+  function sourceLabel(label,live){const el=$("#repo-status");if(el)el.textContent=label;const dot=document.querySelector(".data-provenance .live-dot");if(dot){dot.style.background=live?"#55a66c":"var(--coral)";dot.style.boxShadow="none";}}
+  function visible(){const q=state.query.trim().toLowerCase();return state.repos.filter(r=>(state.activeLang==="All"||r.language===state.activeLang)&&(!q||(r.name+" "+(r.language||"")).toLowerCase().includes(q)));}
+  function renderChips(){const box=$("#lang-chips");if(!box)return;const counts=new Map();state.repos.forEach(r=>{if(r.language)counts.set(r.language,(counts.get(r.language)||0)+1);});const langs=["All",...Array.from(counts.keys()).sort((a,b)=>counts.get(b)-counts.get(a)||a.localeCompare(b))];if(state.activeLang!=="All"&&!counts.has(state.activeLang))state.activeLang="All";box.innerHTML=langs.map(l=>{const active=l===state.activeLang,label=l==="All"?"All ("+state.repos.length+")":l+" · "+counts.get(l);return'<button type="button" class="filter-chip'+(active?' is-active':'')+'" data-lang="'+esc(l)+'" aria-pressed="'+active+'">'+esc(label)+'</button>';}).join("");}
+  function repoCard(r){const language=r.language?'<span class="repo-language"><i class="language-dot" style="background:'+(LANG_COLORS[r.language]||"var(--violet)")+'"></i>'+esc(r.language)+'</span>':'<span>Language not set</span>';const stateTag=r.archived?'<span class="repo-state archived">archived</span>':'<span class="repo-state">public</span>';const updated=r.pushed_at?relativeDay(r.pushed_at):"activity date unavailable";return'<article class="repo-card"><div class="repo-card-top"><span>REPOSITORY / '+language+'</span>'+stateTag+'</div><h3><a href="'+esc(r.html_url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.name)+' <span class="repo-arrow" aria-hidden="true">↗</span></a></h3><p class="repo-description">'+(r.archived?"This repository is marked archived by GitHub.":"Public repository. Inspect its files and history to understand its current scope and completeness.")+'</p><div class="repo-meta"><span>'+esc(updated)+'</span><span title="GitHub stars">★ '+Number(r.stargazers_count||0)+'</span><span title="GitHub forks">⑂ '+Number(r.forks_count||0)+'</span></div></article>';}
+  function updateUrl(){try{const u=new URL(location.href);if(state.query)u.searchParams.set("q",state.query);else u.searchParams.delete("q");if(state.activeLang!=="All")u.searchParams.set("lang",state.activeLang);else u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+(u.searchParams.toString()?"?"+u.searchParams.toString():"")+u.hash);}catch(_){}}
+  function renderRepos(){const grid=$("#repo-grid"),line=$("#result-line"),input=$("#repo-search"),clear=$("#clear-search");if(!grid)return;const items=visible();grid.setAttribute("aria-busy","false");grid.innerHTML=items.length?items.map(repoCard).join(""):'<p class="empty-state">No repositories match this search. Try a shorter name or clear the language filter.</p>';if(line)line.textContent=items.length+" of "+state.repos.length+" repositories shown";if(clear)clear.hidden=!state.query;if(input&&input.value!==state.query)input.value=state.query;updateUrl();}
+  async function loadRepos(){const request=++state.request,note=$("#api-note"),grid=$("#repo-grid");if(!state.repos.length){const c=readCache();state.repos=c?c.repos.map(normalize):fallbackRepos();state.source=c?"cache":"snapshot";renderChips();renderRepos();sourceLabel(c?"Showing cached metadata":"Showing bundled snapshot",false);}if(note)note.hidden=true;if(grid)grid.setAttribute("aria-busy","true");try{const r=await fetchPublicRepos();if(request!==state.request)return;state.repos=r;state.source="live";writeCache(r);renderChips();renderRepos();sourceLabel("Live GitHub metadata",true);}catch(_){if(request!==state.request)return;if(note)note.hidden=false;if(grid)grid.setAttribute("aria-busy","false");sourceLabel(state.source==="cache"?"Cached metadata · live sync failed":"Snapshot metadata · live sync failed",false);}}
+  function initTheme(){const button=$("#theme-toggle"),glyph=$("#theme-glyph");if(!button)return;function sync(){const dark=document.documentElement.dataset.theme==="dark";button.setAttribute("aria-pressed",String(dark));button.setAttribute("aria-label",dark?"Switch to light theme":"Switch to dark theme");if(glyph)glyph.textContent=dark?"☼":"◐";}sync();button.addEventListener("click",()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=t;try{localStorage.setItem(THEME_KEY,t);}catch(_){}sync();});}
+  function initFilters(){const input=$("#repo-search"),chips=$("#lang-chips"),clear=$("#clear-search");if(input)input.addEventListener("input",()=>{state.query=input.value;renderRepos();});if(chips)chips.addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if(!b)return;state.activeLang=b.getAttribute("data-lang")||"All";renderChips();renderRepos();});if(clear)clear.addEventListener("click",()=>{state.query="";if(input)input.value="";renderRepos();if(input)input.focus();});document.addEventListener("keydown",e=>{if(e.key!=="/"||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target;if(t instanceof HTMLElement&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;e.preventDefault();if(input)input.focus();});const p=new URLSearchParams(location.search);state.query=p.get("q")||"";state.activeLang=p.get("lang")||"All";if(input)input.value=state.query;}
+  function init(){const y=$("#year");if(y)y.textContent=String(new Date().getFullYear());const retry=$("#repo-retry");if(retry)retry.addEventListener("click",loadRepos);initTheme();initFilters();renderChips();renderRepos();loadRepos();window.addEventListener("online",loadRepos);}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();

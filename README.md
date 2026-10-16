@@ -1,174 +1,173 @@
-![Shahin Arab — field notes for computation, sound and visual ideas](assets/profile-banner.svg)
-
 <div align="center">
 
-# Shahin Arab
+<img src="assets/constellation.svg" alt="A branching constellation of ideas: artificial intelligence, computer science, systems, and sound." width="100%" />
 
-### Computer Engineering · AI curiosity · systems · sound · visual ideas
+# SHAHIN ARAB / FIELD NOTES
 
-*An evolving field journal for things I’m trying to understand, make, and connect.*
+### Computer Engineering · Curious systems · Computational creativity
 
-[![GitHub](https://img.shields.io/badge/GitHub-Shaiinarab-171923?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Shaiinarab)
-[![Current mode](https://img.shields.io/badge/status-learning%20in%20public-c7f36b?style=for-the-badge&labelColor=171923)](https://github.com/Shaiinarab?tab=repositories)
-[![Interest](https://img.shields.io/badge/focus-computer%20science-9f87ff?style=for-the-badge&labelColor=171923)](https://github.com/Shaiinarab?tab=repositories)
+*Currently learning. Frequently experimenting. Not pretending that interests are credentials.*
+
+[![Interest: AI](https://img.shields.io/badge/interest-AI-7658E8?style=for-the-badge&labelColor=201A35)](https://en.wikipedia.org/wiki/Artificial_intelligence)
+[![Interest: CS fundamentals](https://img.shields.io/badge/focus-CS%20fundamentals-245D73?style=for-the-badge&labelColor=122833)](https://en.wikipedia.org/wiki/Computer_science)
+[![Interest: Linux](https://img.shields.io/badge/interest-Linux-446B41?style=for-the-badge&labelColor=1F3020)](https://www.linux.org/)
+[![Hobby: music](https://img.shields.io/badge/hobby-music%20%2B%20sound-C3533F?style=for-the-badge&labelColor=38201D)](https://en.wikipedia.org/wiki/Music_technology)
+
+[![GitHub](https://img.shields.io/badge/GitHub-Shaiinarab-24292F?style=flat-square&logo=github)](https://github.com/Shaiinarab)
+[![Website](https://img.shields.io/badge/website-field%20notes-7658E8?style=flat-square&logo=githubpages)](https://shaiinarab.github.io/shaiinarab/)
+[![Profile views](https://komarev.com/ghpvc/?username=Shaiinarab&style=flat-square&color=7658E8&label=curious%20visitors)](https://github.com/Shaiinarab)
 
 </div>
 
-> [!NOTE]
-> **Calibration before the lore:** I’m a student still building my foundations, not an established engineer or researcher. This is a map of interests, current learning, and hobbies, not a catalogue of invented credentials. The internet has enough of those already.
-
 ---
 
-## 00 / Index
+> **A note on the signal-to-noise ratio:** this is a student profile, not a fictional career page. I’m building foundations, following questions, and trying to turn some of those questions into useful work. The goal is to show the trail honestly, including the unfinished bits.
 
-| Coordinates | Section | What lives there |
-|:--|:--|:--|
-| <code>01</code> | [The short version](#-01--the-short-version) | Who I am, without the mythology |
-| <code>02</code> | [Curiosity map](#-02--curiosity-map) | Subjects that keep pulling me in |
-| <code>03</code> | [Current learning](#-03--current-learning) | What I’m studying now |
-| <code>04</code> | [Outside the IDE](#-04--outside-the-ide) | Music, art, and other human things |
-| <code>05</code> | [Repositories](#-05--repositories-are-not-trophies) | Coursework, experiments, unfinished ideas |
-| <code>06</code> | [The long arc](#-06--the-long-arc) | Where I’d like learning to lead |
+## ⌁ Table of contents
 
-## ✳ 01 / The short version
+| | |
+|---|---|
+| [01 · The short version](#-01--the-short-version) | [04 · Current learning](#-04--current-learning) |
+| [02 · Interest constellation](#-02--interest-constellation) | [05 · Off-screen interests](#-05--off-screen-interests) |
+| [03 · The kind of questions](#-03--the-kind-of-questions) | [06 · The repository rule](#-06--the-repository-rule) |
 
-I’m Shahin, a Computer Engineering undergraduate based in Shiraz, Iran. I’m fascinated by the logic underneath software, the strange capabilities of AI, the freedom of open systems, and the ways computers can become creative instruments.
+## ◉ 01 · The short version
 
-My goal for now is deliberately unglamorous: **learn the fundamentals, follow my curiosity, finish small things, and keep a record that reflects reality.**
+I’m an undergraduate **Computer Engineering student** based in Shiraz, Iran. My current coursework includes linear algebra and fundamentals of algorithms. Outside class, I’m learning programming and web development while exploring the bigger landscape around AI, computer systems, and creative technology.
+
+**Education:** Computer Engineering at Zand Institute of Higher Education, Shiraz, Iran · *in progress.*
+
+My working interests are broader than my current skill level. I prefer to label the difference rather than blur it.
+
+| Signal | What it means here |
+|:---|:---|
+| **Learning** | Topics I’m actively trying to understand, not subjects I claim to have mastered. |
+| **Experimenting** | Small attempts, prototypes, coursework, and ideas that may change or be abandoned. |
+| **Creative practice** | Music production, sound design, visual aesthetics, and digital art. |
+| **Longer horizon** | Strong computer-science fundamentals, useful open-source work, and international academic opportunities. |
+
+## ⌘ 02 · Interest constellation
+
+<img src="assets/constellation.svg" alt="Interest map connecting AI, computer science foundations, Linux and open source, and music and digital art." width="100%" />
+
+| Domain | Pulling me in | The questions underneath |
+|---|---|---|
+| **Artificial intelligence** | AI systems, machine learning, tools built around models | What makes a system useful, reliable, and worth trusting? |
+| **Computer science** | Algorithms, data structures, linear algebra, software design | Can I explain why something works, not just get it to run? |
+| **Systems & open source** | Linux, virtualization, developer tools | How does the machinery behave when the abstractions stop helping? |
+| **Human + machine** | Interfaces, computational creativity, music software | How can technology give people more room to make things? |
 
 <details>
-<summary><strong>Compact academic snapshot</strong> · expand</summary>
+<summary><strong>Open the map as a study plan</strong> · a direction, not a promise</summary>
 
-| Field | Current picture |
-|:--|:--|
-| Education | Computer Engineering undergraduate at Zand Institute of Higher Education |
-| Current coursework | Linear algebra; fundamentals of algorithms |
-| Learning outside class | Programming fundamentals and web development |
-| Languages I use to communicate | Persian and English |
-| Direction of interest | AI, computer science foundations, systems, and creative technology |
-
-*No degree date, GPA, publication list, job title, or proficiency level is implied by this snapshot.*
-
-</details>
-
-## ⌘ 02 / Curiosity map
-
-These are **areas of interest**, not claims that I have mastered each field.
-
-| Orbit | Questions I find interesting | Current relationship |
-|:--|:--|:--|
-| 🧠 **AI & machine learning** | How do models learn, how should they be evaluated, and where do they actually help? | Exploring concepts and tools |
-| ∑ **Algorithms & mathematics** | How can a problem be represented clearly, and how do we reason about complexity? | Coursework and practice |
-| 🐧 **Linux & open systems** | How do operating systems, virtual machines, and developer tools fit together? | Long-running personal interest |
-| 🧩 **Software design** | What makes a system understandable, reliable, and useful to another person? | Learning by examining and experimenting |
-| 🎛️ **Computational creativity** | How can software interact with music, sound, visuals, and human expression? | Creative curiosity |
-
-### A rough map of how these interests connect
+The interests below are connected, but not interchangeable. Foundations come first; projects should follow the understanding, rather than the other way around.
 
 ```mermaid
 flowchart TD
-    A["Computer science<br/>and creative technology"] --> B["Foundations"]
-    A --> C["Systems"]
-    A --> D["Intelligence"]
-    A --> E["Expression"]
-    B --> B1["Algorithms"]
-    B --> B2["Linear algebra"]
-    C --> C1["Linux"]
-    C --> C2["Virtualization"]
-    C --> C3["Open source"]
-    D --> D1["Artificial intelligence"]
-    D --> D2["Machine learning"]
-    E --> E1["Music production"]
-    E --> E2["Digital art"]
-    E --> E3["Interactive experiences"]
+    A["Computer science foundations"] --> B["Algorithms + linear algebra"]
+    B --> C["AI / machine learning"]
+    A --> D["Programming + software design"]
+    D --> E["Linux + open-source systems"]
+    D --> F["Interactive tools"]
+    F --> G["Music + digital creativity"]
+    C -. "possible future projects" .-> F
 ```
 
-<details>
-<summary><strong>Why this combination?</strong></summary>
+</details>
 
-I like following connections between subjects that are often kept in separate boxes. Mathematics helps explain algorithms; systems work gives software a place to run; AI raises questions about data and evaluation; music and art make me think about tools from the perspective of the person using them.
+## ◌ 03 · The kind of questions
 
-That does not make me an expert in all four. It makes them a useful compass for what to learn next.
+<details open>
+<summary><strong>AI & reliability</strong></summary>
+
+- How should AI-powered tools handle uncertainty, failure, and limited resources?
+- What is the smallest implementation that can test an idea honestly?
+- How do you distinguish a convincing demo from a dependable system?
 
 </details>
 
-## ⌁ 03 / Current learning
-
-The active chapter is about foundations, not collecting impressive technology names.
-
-- [ ] Build a more dependable understanding of linear algebra.
-- [ ] Get comfortable analysing algorithms and their complexity.
-- [ ] Keep improving programming fundamentals through small exercises.
-- [ ] Continue learning web development and the basic pieces of a web application.
-- [ ] Document mistakes and useful discoveries, not just polished outcomes.
-
 <details>
-<summary><strong>My rule for learning projects</strong></summary>
+<summary><strong>Algorithms & fundamentals</strong></summary>
 
-A small, finished program that I can explain is more valuable than a giant repository whose architecture I cannot defend.
-
-When I publish meaningful work, I want each project to answer four questions:
-
-1. What problem was I trying to understand or solve?
-2. What does the code actually do today?
-3. What did I learn, including the parts that went wrong?
-4. What remains unfinished?
+- What is the cost of an algorithm as input size grows?
+- Which mathematical idea makes a programming technique click?
+- Can I explain a solution in plain language before translating it into code?
 
 </details>
 
-## ♪ 04 / Outside the IDE
-
-Computers are not my only interest. The offline part of this profile is not an afterthought.
-
-| Soundtrack | Creative tools | Visual interests |
-|:--|:--|:--|
-| Electronic music | FL Studio | Digital art |
-| Progressive rock | Ableton Live | Interface aesthetics |
-| Nu-metal & rap | Arrangement and sound design | Generative and interactive visuals |
-| Jazz & Iranian music | Listening, experimenting, learning | Art × technology |
-
-My listening habits jump between loud guitars, electronic textures, rap, jazz, and Iranian music. I enjoy music production as a hobby: arranging sounds, experimenting with effects, and learning how a musical idea changes when you actually build it.
-
-I’m also interested in digital art, visual systems, and the design of tools that feel enjoyable to use.
-
-> *A computer can be a laboratory, a musical instrument, a sketchbook, or an unnecessarily complicated way to make a list. Context matters.*
-
-## ⌘ 05 / Repositories are not trophies
-
-[**Browse all public repositories →**](https://github.com/Shaiinarab?tab=repositories)
-
-This account contains a mixture of coursework, experiments, prototypes, and ideas at different stages. A repository being public does **not** mean it is complete, production-ready, independently authored in every part, or evidence of professional proficiency.
-
-I want the repository history to become a record of learning: clearer READMEs, smaller scopes, reproducible steps, and honest descriptions of what works.
-
 <details>
-<summary><strong>How to read my repository list</strong></summary>
+<summary><strong>Creative technology</strong></summary>
 
-- **Coursework** means a learning exercise, not a claim of mastery.
-- **Experiment** means I’m exploring an idea; interfaces and implementations may change.
-- **Archived** means the repository is archived on GitHub or no longer active.
-- **In progress** means unfinished. Please do not mentally promote it to production software.
-
-The project README and commit history are the evidence. The profile page is just a map.
+- What can software reveal about sound, rhythm, and visual patterns?
+- How can interfaces feel expressive without becoming difficult to use?
+- What happens when art direction and engineering constraints meet?
 
 </details>
 
-## ↗ 06 / The long arc
+## 📚 04 · Current learning
 
-I’d like to build solid computer science knowledge, contribute useful work to open source, explore AI and creative software more deeply, and eventually pursue international academic opportunities.
+| Track | Current focus | Evidence I want to build |
+|---|---|---|
+| **Coursework** | Linear algebra and fundamentals of algorithms | Clear notes, worked examples, and accurate explanations |
+| **Programming** | Strengthening fundamentals and web development | Small, understandable projects with instructions that work |
+| **Systems** | Linux and virtualization | Better mental models and repeatable experiments |
+| **AI** | Understanding the field and how AI tools are put together | Reading notes, comparisons, and careful prototypes |
 
-That future is a direction, not an achievement badge.
+<details>
+<summary><strong>Learning log · what counts as progress?</strong></summary>
 
-<div align="center">
+- [ ] Explain a difficult concept without copying the textbook.
+- [ ] Complete a small project from start to finish.
+- [ ] Document setup, limitations, and reproducible steps.
+- [ ] Separate measured results from guesses.
+- [ ] Revisit old work and record what changed in my understanding.
 
-### Learn deeply. Build honestly. Stay curious.
+*This is a checklist of standards I want to work toward, not a claim that they are all completed.*
 
-[GitHub repositories](https://github.com/Shaiinarab?tab=repositories) · [Profile website](https://shaiinarab.github.io/shaiinarab/) · [LinkedIn](https://www.linkedin.com/in/shaiinarab/) · [Hugging Face](https://huggingface.co/shahinozone)
+</details>
 
-<sub>Last manually reviewed: October 2026 · Interests change; claims should change only when the evidence does.</sub>
+## 🎛 05 · Off-screen interests
 
-</div>
+| Side of life | Things I’m into |
+|---|---|
+| **Making sound** | FL Studio, Ableton Live, music production, arrangement, and sound design |
+| **Listening** | Electronic music, progressive rock, nu-metal, jazz, rap, and Iranian music |
+| **Visuals** | Digital art, strong color systems, interface design, and strange little visual ideas |
+| **Digital tinkering** | Linux, virtual machines, operating systems, and figuring out how tools fit together |
+| **Local history & culture** | Shiraz, Persian cultural history, and the way place shapes art |
+
+<blockquote>
+  <p><strong>Creative rule:</strong> listen widely, keep experimenting, finish more small things, and don’t mistake having a taste for having a finished body of work.</p>
+</blockquote>
+
+## ⟁ 06 · The repository rule
+
+This GitHub account is a **workbench**, not a list of finished products. It contains coursework, experiments, prototypes, archived ideas, and work in progress.
+
+- Repository language labels are GitHub metadata, not proof of proficiency.
+- A repository name or polished interface does not establish that the code is complete.
+- An experiment may be useful even if it is never shipped.
+- Completed work should eventually have a reproducible setup, a clear README, known limitations, and evidence that it runs.
+
+<details>
+<summary><strong>What I want every serious project to eventually contain</strong></summary>
+
+1. A clear problem statement and a limited scope.
+2. A README that says what works and what does not.
+3. Reproduction steps that a stranger can follow.
+4. Tests or demonstrations appropriate to the project.
+5. Honest limitations, known issues, and next steps.
+
+</details>
 
 ---
 
-<sub>† This profile intentionally prioritizes interests and current learning over a skills inventory. I’ll add concrete projects and stronger claims when there is work to support them.</sub>
+<div align="center">
+
+### Curiosity is the starting point. Finished work is the evidence.
+
+*Shahin Arab · Shiraz, Iran · Updated October 2026*
+
+[Explore the repository list →](https://github.com/Shaiinarab?tab=repositories) · [Open the site →](https://shaiinarab.github.io/shaiinarab/)
+
+</div>
