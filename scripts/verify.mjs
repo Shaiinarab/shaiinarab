@@ -77,19 +77,17 @@ check("workflow:verify-gate-before-deploy", workflow.includes("node scripts/veri
 check("workflow:stages-site-dir", /path:\s*_site/.test(workflow));
 check("workflow:no-whole-repo-upload", !/path:\s*\.\s*$/m.test(workflow));
 
-/* ---- README widget correctness (the account is Shaiinarab) ---- */
-const widgetUsers = [...readme.matchAll(/(?:username|user)=([A-Za-z0-9-]+)/g)].map((m) => m[1]);
-const chartUsers = [...readme.matchAll(/ghchart\.rshah\.org\/[0-9a-f]+\/([A-Za-z0-9-]+)/g)].map((m) => m[1]);
-const wrongUsers = [...widgetUsers, ...chartUsers].filter((u) => u.toLowerCase() !== "shaiinarab");
-check(
-  "readme:all-widgets-target-the-account",
-  widgetUsers.length >= 4 && wrongUsers.length === 0,
-  `${widgetUsers.length + chartUsers.length} widgets${wrongUsers.length ? ` — wrong: ${wrongUsers.join(",")}` : ""}`
-);
-check("readme:stats-use-real-account", readme.includes("username=Shaiinarab") && readme.includes("user=Shaiinarab") && readme.includes("ghchart.rshah.org/ff0080/Shaiinarab"));
-check("readme:no-deprecated-hosts", !/readme-typing-svg\.herokuapp\.com|github-readme-streak-stats\.herokuapp\.com|github-profile-trophy\.vercel\.app/.test(readme));
-check("readme:flow-diagram-linked", readme.includes("assets/hub-flow.svg"));
-check("readme:widgets-have-alt-text", !/<img(?![^>]*\balt=)[^>]*>/i.test(readme));
+/* ---- truthful profile README ---- */
+check("readme:student-profile", readme.includes("Computer Engineering undergraduate") && readme.includes("Degree in progress"));
+check("readme:interests-present", /Artificial intelligence/i.test(readme) && /music production/i.test(readme) && /digital art/i.test(readme));
+check("readme:no-inflated-stack", !/CUDA|OpenCL|Mojo|Rust badge|GPU Computing|Knows everything/i.test(readme));
+check("readme:short-resume-present", readme.includes("## Short résumé") && readme.includes("## Academic interests"));
+check("readme:repo-status-caveat", /work in progress|not a claim/i.test(readme));
+check("readme:links-present", readme.includes("https://github.com/Shaiinarab") && readme.includes("https://shaiinarab.github.io/shaiinarab/"));
+check("readme:no-unneeded-personal-disclosure", !/AuDHD|cannabis|psilocybin|substances|diagnosis/i.test(readme));
+check("readme:no-widget-dependence", !/github-readme-stats|readme-typing-svg|github-trophies|ghchart\.rshah\.org/i.test(readme));
+
+
 
 /* ---- UI hardening ---- */
 check("index:skip-link", index.includes('class="skip-link"'));

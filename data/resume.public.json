@@ -2,46 +2,37 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "basics": {
     "name": "Shahin Arab",
-    "label": "Open-source builder",
-    "summary": "I build focused software across Rust, Go, Python, and TypeScript—from edge gateways and developer tooling to operational platforms and learning projects.",
+    "label": "Computer Engineering student",
+    "summary": "Undergraduate Computer Engineering student at Zand Institute of Higher Education in Shiraz, Iran. Building foundations in algorithms, linear algebra, programming, and web development. Academic interests include artificial intelligence, software systems, Linux, open source, and computational creativity.",
     "location": {
       "city": "Shiraz",
       "countryCode": "IR"
     },
     "profiles": [
-      {
-        "network": "GitHub",
-        "username": "Shaiinarab",
-        "url": "https://github.com/Shaiinarab"
-      }
+      {"network": "GitHub", "username": "Shaiinarab", "url": "https://github.com/Shaiinarab"},
+      {"network": "LinkedIn", "username": "shaiinarab", "url": "https://www.linkedin.com/in/shaiinarab/"}
     ]
   },
-  "skills": [
+  "education": [
     {
-      "name": "Systems and backend development",
-      "keywords": ["Rust", "Go", "Python", "TypeScript"]
-    },
-    {
-      "name": "Edge and developer tooling",
-      "keywords": ["Cloudflare Workers", "CLI", "Observability", "AI systems"]
+      "institution": "Zand Institute of Higher Education",
+      "area": "Computer Engineering",
+      "studyType": "Undergraduate studies",
+      "location": "Shiraz, Iran",
+      "courses": ["Linear Algebra", "Fundamentals of Algorithms"]
     }
   ],
-  "projects": [
-    {
-      "name": "RepoPulse",
-      "description": "A minimalist Cloudflare Worker that verifies signed GitHub webhook deliveries and exposes a privacy-filtered public activity signal.",
-      "url": "https://github.com/Shaiinarab/repopulse",
-      "highlights": [
-        "Verified public repository evidence and a public-safe live status endpoint."
-      ],
-      "evidenceUrl": "https://repopulse.shahino3ozone1353.workers.dev/status",
-      "publicProof": true
-    }
+  "interests": [
+    {"name": "Computer science", "keywords": ["Algorithms", "Software engineering", "Programming fundamentals"]},
+    {"name": "Artificial intelligence", "keywords": ["AI systems", "Machine learning"]},
+    {"name": "Systems and open source", "keywords": ["Linux", "Virtualization", "Developer tools"]},
+    {"name": "Creative technology", "keywords": ["Music production", "Sound design", "Digital art", "Computational creativity"]}
   ],
+  "projects": [],
   "meta": {
     "canonical": "https://github.com/Shaiinarab/shaiinarab/blob/main/data/resume.public.json",
-    "lastModified": "2026-08-21",
-    "version": "1.0.0",
-    "publicationPolicy": "Contains only reviewed public-safe content. This file intentionally excludes private contact details, education details, unverified claims, and non-public project information."
+    "lastModified": "2026-10-16",
+    "version": "1.1.0",
+    "publicationPolicy": "Contains reviewed education and interest information only. No professional experience, technical proficiency, or project achievement is claimed unless it can be verified and described accurately."
   }
 }

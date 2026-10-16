@@ -29,38 +29,32 @@
   // Offline / rate-limited snapshot — regenerated from the live GitHub API by
   // `python3 scripts/refresh-snapshot.py` (uses GITHUB_PAT; CI keeps it fresh).
   const FALLBACK_REPOS = [
-    { name: "simorgh", description: "Free-to-run, no-KYC, self-evolving agentic AI gateway that federates fragmented free tiers into one resilient flock.", language: "TypeScript", html_url: "https://github.com/Shaiinarab/simorgh", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "mch", description: "MiMo Claw Harness", language: null, html_url: "https://github.com/Shaiinarab/mch", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "pabetoop-club", description: "White-label membership, subscription and billing platform for sports clubs and academies — Go + PocketBase, one binary, Persian RTL UI. Template repository.", language: "Go", html_url: "https://github.com/Shaiinarab/pabetoop-club", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "pabetoop-league", description: "White-label youth competition platform: fixtures, results, standings and admin — Go + SQLite, one binary, Persian RTL UI. Template repository.", language: "Go", html_url: "https://github.com/Shaiinarab/pabetoop-league", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "portfolio-context", description: "Minimal public-safe portfolio context API on Cloudflare Workers", language: "JavaScript", html_url: "https://github.com/Shaiinarab/portfolio-context", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "simorgh", description: null, language: "TypeScript", html_url: "https://github.com/Shaiinarab/simorgh", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "mch", description: null, language: null, html_url: "https://github.com/Shaiinarab/mch", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "pabetoop-club", description: null, language: "Go", html_url: "https://github.com/Shaiinarab/pabetoop-club", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "pabetoop-league", description: null, language: "Go", html_url: "https://github.com/Shaiinarab/pabetoop-league", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "portfolio-context", description: null, language: "JavaScript", html_url: "https://github.com/Shaiinarab/portfolio-context", stargazers_count: 0, forks_count: 0, archived: false },
     { name: "repopulse", description: null, language: "TypeScript", html_url: "https://github.com/Shaiinarab/repopulse", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "Simorgh-edge-gateway", description: "ARCHIVED — Simorgh v1 edge gateway. Development moved to Shaiinarab/simorgh (canonical).", language: "TypeScript", html_url: "https://github.com/Shaiinarab/Simorgh-edge-gateway", stargazers_count: 0, forks_count: 0, archived: true },
-    { name: "Data_Structure_And_Intro_To_Algorithms.CLRS", description: "Python mini-homework solutions for a Data Structures and Algorithms course.", language: "Python", html_url: "https://github.com/Shaiinarab/Data_Structure_And_Intro_To_Algorithms.CLRS", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "Data-struct-and-Intro-to-algo-final-project", description: "Queue and stack simulations in Python, with CLI and Tkinter interfaces for a data structures course.", language: "Python", html_url: "https://github.com/Shaiinarab/Data-struct-and-Intro-to-algo-final-project", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "mashreghi_asil", description: "Full-stack luxury perfume e-commerce platform built with Next.js, Rust, and WebAssembly.", language: "TypeScript", html_url: "https://github.com/Shaiinarab/mashreghi_asil", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "Log-Sentinel", description: "Python command-line tool for ingesting and analyzing system and application log files.", language: "Python", html_url: "https://github.com/Shaiinarab/Log-Sentinel", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "shiraz-bazaar-telegram-bot", description: "Persian-first Telegram price bot with resilient [tgju.org](https://tgju.org) scraper, SQLite alerts, and automatic fallback — no cloud costs.", language: null, html_url: "https://github.com/Shaiinarab/shiraz-bazaar-telegram-bot", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "Mashreghi-asil", description: "a website for a perfume onlineshop", language: null, html_url: "https://github.com/Shaiinarab/Mashreghi-asil", stargazers_count: 0, forks_count: 0, archived: true },
-    { name: "Falcons", description: "Resources and applications for the Falcon Persian-language project.", language: null, html_url: "https://github.com/Shaiinarab/Falcons", stargazers_count: 0, forks_count: 0, archived: false },
-    { name: "to-improve", description: "varius ways to improve", language: null, html_url: "https://github.com/Shaiinarab/to-improve", stargazers_count: 0, forks_count: 0, archived: true },
+    { name: "Simorgh-edge-gateway", description: null, language: "TypeScript", html_url: "https://github.com/Shaiinarab/Simorgh-edge-gateway", stargazers_count: 0, forks_count: 0, archived: true },
+    { name: "Data_Structure_And_Intro_To_Algorithms.CLRS", description: null, language: "Python", html_url: "https://github.com/Shaiinarab/Data_Structure_And_Intro_To_Algorithms.CLRS", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "Data-struct-and-Intro-to-algo-final-project", description: null, language: "Python", html_url: "https://github.com/Shaiinarab/Data-struct-and-Intro-to-algo-final-project", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "mashreghi_asil", description: null, language: "TypeScript", html_url: "https://github.com/Shaiinarab/mashreghi_asil", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "Log-Sentinel", description: null, language: "Python", html_url: "https://github.com/Shaiinarab/Log-Sentinel", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "shiraz-bazaar-telegram-bot", description: null, language: null, html_url: "https://github.com/Shaiinarab/shiraz-bazaar-telegram-bot", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "Mashreghi-asil", description: null, language: null, html_url: "https://github.com/Shaiinarab/Mashreghi-asil", stargazers_count: 0, forks_count: 0, archived: true },
+    { name: "Falcons", description: null, language: null, html_url: "https://github.com/Shaiinarab/Falcons", stargazers_count: 0, forks_count: 0, archived: false },
+    { name: "to-improve", description: null, language: null, html_url: "https://github.com/Shaiinarab/to-improve", stargazers_count: 0, forks_count: 0, archived: true },
   ];
 
-  // hand-applied seals for repos that deserve a sticker
-  const SEALS = {
-    "repopulse": { text: "privacy first", rot: "-5deg" },
-    "simorgh": { text: "the ambitious one", rot: "3deg" },
-    "pabetoop-club": { text: "real clubs, real users", rot: "-3deg" },
-    "shiraz-bazaar-telegram-bot": { text: "zero cloud cost", rot: "4deg" },
-    "mashreghi_asil": { text: "my WASM baby", rot: "-4deg" },
-  };
+  // No achievement-style labels: each project should explain its own status.
+  const SEALS = {};
 
   const TYPED_PHRASES = [
-    "systems, tools & practical AI.",
-    "rust at 2am, python by daylight.",
-    "I read the docs before I open an issue.",
-    "music first. code second. mostly.",
-    "ship small. verify everything. repeat.",
+    "learning computer science, one concept at a time.",
+    "algorithms, linear algebra, and the fundamentals.",
+    "interested in AI; honest about being a beginner.",
+    "music first, then whatever I'm studying.",
+    "learn, make notes, try again.",
   ];
 
   /* ---------- tiny helpers ---------- */
@@ -219,7 +213,7 @@
            aria-label="${esc(r.name)} on GitHub">
           <span class="repo-arrow" aria-hidden="true">↗</span>
           <h3 class="repo-name">${esc(r.name)} ${badges}</h3>
-          <p class="repo-desc">${r.description ? esc(r.description) : '<span class="dim">No description yet. I know.</span>'}</p>
+          <p class="repo-desc"><span class="dim">Public repository. Status and completeness vary; check its own README and history.</span></p>
           <div class="repo-meta">
             ${r.language ? `<span><span class="lang-dot" style="--lc:${langColor(r.language)}"></span>${esc(r.language)}</span>` : ""}
             <span class="mi">${starIcon}${r.stargazers_count}</span>
@@ -463,16 +457,16 @@
 
   const TERM_SCRIPT = [
     { kind: "cmd", text: "whoami" },
-    { kind: "out", text: "> Shahin Arab — systems tinkerer · Shiraz, Iran" },
+    { kind: "out", text: "> Shahin Arab — Computer Engineering student · Shiraz, Iran" },
     { kind: "cmd", text: "cat ~/mood.txt" },
-    { kind: "out", text: "> shipping. slightly over-caffeinated." },
+    { kind: "out", text: "> learning steadily. usually listening to music." },
     { kind: "cmd", text: "ls ~/repos | wc -l" },
     { kind: "out", html: '> <span data-slot="repo-count">…</span> public repositories listed' },
     { kind: "cmd", text: "sync --with api.github.com", typo: "sybc --wit api.github.com" },
     { kind: "out", html: '> <span data-slot="sync-status" class="dim">connecting…</span>' },
     { kind: "aside", text: "# yes, I typo. I also fix." },
     { kind: "cmd", text: "why" },
-    { kind: "out", text: "> because it annoyed me. that's usually the reason." },
+    { kind: "out", text: "> small, verifiable steps beat impressive-sounding claims." },
   ];
 
   const commonPrefixLen = (a, b) => {
@@ -626,7 +620,7 @@
     const h = new Date().getHours();
     const part = h < 5 ? "late night" : h < 11 ? "morning" : h < 17 ? "afternoon" : h < 22 ? "evening" : "late night";
     const local = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    node.innerHTML = `good ${esc(part)}. it's <span class="hl">${esc(local)}</span> where you are — Shiraz says hi.`;
+    node.innerHTML = `good ${esc(part)}. it's <span class="hl">${esc(local)}</span> where you are — `;
   }
 
   /* ---------- pointer joy: parallax, spotlight, magnetic, tilt ---------- */

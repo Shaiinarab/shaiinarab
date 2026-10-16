@@ -7,7 +7,6 @@ const required = [
   ['basics', 'name'],
   ['basics', 'label'],
   ['basics', 'summary'],
-  ['projects'],
 ];
 
 for (const path of required) {
