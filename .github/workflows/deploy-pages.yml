@@ -110,7 +110,6 @@ jobs:
           cp index.html 404.html robots.txt sitemap.xml .nojekyll _site/
           cp -r assets _site/assets
           cp data/resume.public.json _site/data/
-          cp -r vendor _site/vendor
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
