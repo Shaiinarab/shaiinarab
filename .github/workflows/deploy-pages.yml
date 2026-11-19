@@ -13,8 +13,8 @@
 # `environment: <name>` — so refresh-snapshot declares it too. Never hardcode
 # or echo the token; GitHub masks it in logs automatically.
 #
-# First run: if the deploy job fails with "Pages not enabled",
-# open Settings → Pages and set Source = "GitHub Actions", then re-run.
+# The deploy job asks configure-pages to enable the Pages site automatically.
+# If repository policy blocks that operation, set Source = "GitHub Actions" in Settings → Pages.
 
 name: Deploy to GitHub Pages
 
@@ -32,7 +32,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # Keeps FALLBACK_REPOS in assets/app.js current with the live GitHub API,
@@ -118,6 +118,8 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
