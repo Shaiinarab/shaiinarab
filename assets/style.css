@@ -52,3 +52,11 @@ html[data-theme="dark"] { color-scheme:dark; --paper:#171423; --paper-deep:#201b
 .project-ai{border-top:3px solid #7658e8}.project-systems{border-top:3px solid #4d8c9d}.project-community{border-top:3px solid #55a68d}.project-crypto{border-top:3px solid #c17d48}
 @media(max-width:760px){.project-grid{grid-template-columns:1fr}.project-card{min-height:0}.projects-section .section-heading{grid-template-columns:1fr;gap:1rem}}
 @media(prefers-reduced-motion:reduce){.project-card{transition:none}.project-card:hover{transform:none}}
+
+/* Keep section navigation reachable on narrow screens instead of hiding it. */
+@media(max-width:760px){
+  .header-inner{flex-wrap:wrap;padding-bottom:.35rem}
+  .main-nav{display:flex;order:3;width:100%;min-width:0;overflow-x:auto;gap:1.15rem;padding:.15rem 0 .35rem;scrollbar-width:none}
+  .main-nav::-webkit-scrollbar{display:none}
+  .main-nav a{display:inline-flex;align-items:center;min-height:40px;font-size:.72rem}
+}
